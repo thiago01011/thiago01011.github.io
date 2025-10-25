@@ -1,0 +1,68 @@
+name: "Thiago PS Galindo"
+title: "Software Engineer"
+email: "ecthiagoufpb@gmail.com"
+location: "Toronto, Canada"
+linkedin: "https://www.linkedin.com/in/tgalindo1011/"
+avatar: "/assets/images/my-avatar.png"
+bio: |
+  Software Engineer specialized in the Android/Linux stack. I’m affectionate for tracking issues across
+  system layers and crafting pragmatic solutions—from Kotlin app code down to native components.
+  I focus on reliable, maintainable software: performance profiling, crash/ANR reduction, build systems,
+  and developer experience. Currently based in Toronto, Canada.
+
+services:
+  - title: "Android Engineering"
+    icon: "/assets/images/icon-app.svg"
+    description: "Kotlin/Jetpack, performance tuning, crash/ANR mitigation, CI/CD and release health."
+  - title: "Systems & Linux"
+    icon: "/assets/images/icon-dev.svg"
+    description: "Native components in C/C++, Android/Linux tooling, build systems, and profiling."
+  - title: "Architecture & DX"
+    icon: "/assets/images/icon-design.svg"
+    description: "Clean architecture, modularization, testing strategy, and developer experience improvements."
+
+skills:
+  - name: "Android Programming"
+    level: 85
+  - name: "Kotlin"
+    level: 90
+  - name: "C"
+    level: 99
+  - name: "Python"
+    level: 77
+  - name: "System Design"
+    level: 80
+  - name: "Jetpack Compose"
+    level: 80
+
+experience:
+  - title: "Android Developer — Mistplay"
+    dates: "Apr 2022 — Present"
+    summary: "Full-time Android development focusing on Kotlin/Jetpack, performance profiling, stability, and release health."
+  - title: "Android Engineer — Venturus"
+    dates: "Sep 2018 — Apr 2022"
+    summary: "Permanent full-time engineer delivering Android features, architecture improvements, and quality automation."
+  - title: "Junior Software Engineer — SIDIA (Samsung Institute)"
+    dates: "Oct 2017 — Dec 2017"
+    summary: "Worked on Android software initiatives supporting native components and tooling."
+
+education:
+  - title: "Universidade Federal da Paraíba"
+    dates: "2011 — 2017"
+    summary: "Bachelor’s Degree in Computer Engineering."
+  - title: "New York Institute of Technology"
+    dates: "2015 — 2016"
+    summary: "Sandwich Program in Computer Software Engineering."
+
+projects:
+  - title: "Data Structures"
+    category: "learning"
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop"
+    url: "#"
+  - title: "Tap the Target"
+    category: "game"
+    image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop"
+    url: "#"
+
+medium_url: "https://medium.com/@tgalindo1011"
+

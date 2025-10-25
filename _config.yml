@@ -1,0 +1,11 @@
+title: "Thiago PS Galindo"
+description: "Software Engineer specialized in Android/Linux systems, Kotlin, and C."
+markdown: kramdown
+theme: null
+plugins: []
+exclude:
+  - website-demo-image
+  - README.md
+  - LICENSE
+
+
