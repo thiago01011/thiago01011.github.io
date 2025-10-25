@@ -157,3 +157,61 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
   });
 }
+
+// Scroll-reveal using IntersectionObserver (respects reduced motion)
+(function () {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) return;
+
+  const revealEls = document.querySelectorAll(
+    '.service-item, .content-card, .clients-item, .timeline-item, .project-item, .blog-post-item'
+  );
+  if (!revealEls.length) return;
+
+  revealEls.forEach(el => el.classList.add('reveal'));
+
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('revealed');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  revealEls.forEach(el => io.observe(el));
+})();
+
+// Animate skill bars when Resume is shown (respects reduced motion)
+(function () {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const skillFills = document.querySelectorAll('.skill-progress-fill');
+  if (!skillFills.length) return;
+
+  skillFills.forEach(el => {
+    el.dataset.targetWidth = el.style.width || '0%';
+    if (!reduceMotion) el.style.width = '0%';
+  });
+
+  function animateSkills() {
+    if (reduceMotion) return;
+    skillFills.forEach(el => { el.style.transition = 'width 900ms ease'; el.style.width = el.dataset.targetWidth; });
+  }
+
+  const navLinks = document.querySelectorAll('[data-nav-link]');
+  const pages = document.querySelectorAll('[data-page]');
+
+  function isResumeActive() {
+    return Array.from(pages).some(p => p.dataset.page === 'resume' && p.classList.contains('active'));
+  }
+
+  navLinks.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.textContent.trim().toLowerCase() === 'resume') {
+        setTimeout(animateSkills, 50);
+      }
+    });
+  });
+
+  if (isResumeActive()) setTimeout(animateSkills, 50);
+})();
