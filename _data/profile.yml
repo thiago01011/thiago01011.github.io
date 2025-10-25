@@ -20,6 +20,9 @@ services:
   - title: "Architecture & DX"
     icon: "/assets/images/icon-design.svg"
     description: "Clean architecture, modularization, testing strategy, and developer experience improvements."
+  - title: "Algorithms Learnings"
+    icon: "/assets/images/icon-quote.svg"
+    description: "Notes and exercises on data structures and algorithms."
 
 skills:
   - name: "Android Programming"

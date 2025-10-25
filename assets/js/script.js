@@ -210,3 +210,30 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
   if (isResumeActive()) setTimeout(animateSkills, 50);
 })();
+
+// Blog topic switcher
+(function () {
+  const topicButtons = document.querySelectorAll('.blog-topic-btn');
+  const panels = document.querySelectorAll('.blog-topic-panel');
+  if (!topicButtons.length || !panels.length) return;
+
+  let activeBtn = document.querySelector('.blog-topic-btn.active') || topicButtons[0];
+  let activePanel = document.querySelector('.blog-topic-panel.active') || panels[0];
+
+  topicButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.getAttribute('data-blog-topic');
+      const nextPanel = document.querySelector(`[data-blog-panel="${key}"]`);
+      if (!nextPanel) return;
+
+      if (activeBtn) activeBtn.classList.remove('active');
+      if (activePanel) activePanel.classList.remove('active');
+
+      btn.classList.add('active');
+      nextPanel.classList.add('active');
+
+      activeBtn = btn;
+      activePanel = nextPanel;
+    });
+  });
+})();

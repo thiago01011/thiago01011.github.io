@@ -1,3 +1,37 @@
+/* BLOG layout */
+.blog-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 16px;
+}
+.blog-sidebar {
+  background: var(--eerie-black-2);
+  border: 1px solid var(--jet);
+  border-radius: 16px;
+  padding: 16px;
+}
+.blog-topic-list { display: grid; gap: 8px; }
+.blog-topic-btn {
+  width: 100%;
+  color: var(--light-gray);
+  background: var(--onyx);
+  border: 1px solid var(--jet);
+  border-radius: 10px;
+  padding: 10px 12px;
+  text-align: left;
+  transition: var(--transition-1);
+}
+.blog-topic-btn.active,
+.blog-topic-btn:hover { color: var(--orange-yellow-crayola); }
+
+.blog-topic-panels {
+  background: var(--eerie-black-2);
+  border: 1px solid var(--jet);
+  border-radius: 16px;
+  padding: 16px;
+}
+.blog-topic-panel { display: none; }
+.blog-topic-panel.active { display: block; }
 /*-----------------------------------*\
   #style.css
 \*-----------------------------------*/
