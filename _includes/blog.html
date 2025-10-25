@@ -1,18 +1,9 @@
 <article class="blog" data-page="blog">
   <header>
-    <h2 class="h2 article-title">Blog</h2>
+    <h2 class="h2 article-title" id="blogTitle">Blog</h2>
   </header>
 
-  <section class="blog-layout">
-    <aside class="blog-sidebar">
-      <h3 class="h3">Topics</h3>
-      <ul class="blog-topic-list">
-        {% for s in site.data.profile.services %}
-        <li><button class="blog-topic-btn{% if forloop.first %} active{% endif %}" data-blog-topic="{{ s.title | downcase | replace: ' ', '-' }}">{{ s.title }}</button></li>
-        {% endfor %}
-      </ul>
-    </aside>
-
+  <section>
     <div class="blog-topic-panels">
       {% for s in site.data.profile.services %}
       <section class="blog-topic-panel{% if forloop.first %} active{% endif %}" data-blog-panel="{{ s.title | downcase | replace: ' ', '-' }}">

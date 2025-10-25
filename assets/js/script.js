@@ -144,6 +144,12 @@ for (let i = 0; i < navigationLinks.length; i++) {
         pages[i].classList.add("active");
         navigationLinks[i].classList.add("active");
         window.scrollTo(0, 0);
+        // toggle blog sidebar mode on body
+        if (pages[i].dataset.page === 'blog') {
+          document.body.setAttribute('data-page-blog', 'true');
+        } else {
+          document.body.removeAttribute('data-page-blog');
+        }
       } else {
         pages[i].classList.remove("active");
         navigationLinks[i].classList.remove("active");
@@ -215,6 +221,7 @@ for (let i = 0; i < navigationLinks.length; i++) {
 (function () {
   const topicButtons = document.querySelectorAll('.blog-topic-btn');
   const panels = document.querySelectorAll('.blog-topic-panel');
+  const blogTitle = document.getElementById('blogTitle');
   if (!topicButtons.length || !panels.length) return;
 
   let activeBtn = document.querySelector('.blog-topic-btn.active') || topicButtons[0];
@@ -231,6 +238,10 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
       btn.classList.add('active');
       nextPanel.classList.add('active');
+
+      if (blogTitle) {
+        blogTitle.textContent = btn.textContent.trim();
+      }
 
       activeBtn = btn;
       activePanel = nextPanel;
