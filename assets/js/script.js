@@ -144,6 +144,13 @@ for (let i = 0; i < navigationLinks.length; i++) {
         pages[i].classList.add("active");
         navigationLinks[i].classList.add("active");
         window.scrollTo(0, 0);
+        // set current page on body
+        document.body.setAttribute('data-page', pages[i].dataset.page);
+        // toggle sidebar game visibility explicitly
+        const sidebarGame = document.querySelector('.sidebar-game');
+        if (sidebarGame) {
+          sidebarGame.style.display = (pages[i].dataset.page === 'about') ? 'block' : 'none';
+        }
         // toggle blog sidebar mode on body
         if (pages[i].dataset.page === 'blog') {
           document.body.setAttribute('data-page-blog', 'true');
@@ -161,6 +168,12 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
 // Scroll-reveal using IntersectionObserver (respects reduced motion)
 (function () {
+  const initial = document.querySelector('article.active');
+  if (initial) {
+    document.body.setAttribute('data-page', initial.dataset.page);
+    const sidebarGame = document.querySelector('.sidebar-game');
+    if (sidebarGame) sidebarGame.style.display = (initial.dataset.page === 'about') ? 'block' : 'none';
+  }
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduceMotion) return;
 
@@ -247,4 +260,148 @@ for (let i = 0; i < navigationLinks.length; i++) {
       activePanel = nextPanel;
     });
   });
+})();
+
+// Simple Breakout (Arkanoid) for About sidebar
+(function () {
+  const CANVAS_ID = 'arkanoid';
+  let canvas, ctx, rafId = null;
+
+  const state = {
+    w: 240,
+    h: 360,
+    ball: { x: 120, y: 200, r: 6, dx: 2, dy: -2 },
+    paddle: { w: 60, h: 10, x: 90, y: 340, speed: 5, vx: 0 },
+    keys: { left: false, right: false },
+    rows: 5, cols: 8, brickW: 26, brickH: 10, brickPad: 4, brickTop: 40, brickLeft: 10,
+    bricks: []
+  };
+
+  function buildBricks() {
+    state.bricks = [];
+    for (let r = 0; r < state.rows; r++) {
+      const row = [];
+      for (let c = 0; c < state.cols; c++) row.push({ alive: true });
+      state.bricks.push(row);
+    }
+  }
+
+  function drawBricks() {
+    for (let r = 0; r < state.rows; r++) {
+      for (let c = 0; c < state.cols; c++) {
+        const b = state.bricks[r][c];
+        if (!b.alive) continue;
+        const x = state.brickLeft + c * (state.brickW + state.brickPad);
+        const y = state.brickTop + r * (state.brickH + state.brickPad);
+        ctx.fillStyle = 'hsl(' + (35 + r * 8) + ', 80%, 55%)';
+        ctx.fillRect(x, y, state.brickW, state.brickH);
+      }
+    }
+  }
+
+  function collideBricks() {
+    for (let r = 0; r < state.rows; r++) {
+      for (let c = 0; c < state.cols; c++) {
+        const b = state.bricks[r][c];
+        if (!b.alive) continue;
+        const bx = state.brickLeft + c * (state.brickW + state.brickPad);
+        const by = state.brickTop + r * (state.brickH + state.brickPad);
+        if (state.ball.x > bx && state.ball.x < bx + state.brickW &&
+            state.ball.y - state.ball.r < by + state.brickH &&
+            state.ball.y + state.ball.r > by) {
+          b.alive = false;
+          state.ball.dy = -state.ball.dy;
+          return;
+        }
+      }
+    }
+  }
+
+  function step() {
+    ctx.clearRect(0, 0, state.w, state.h);
+
+    const b = state.ball;
+    b.x += b.dx;
+    b.y += b.dy;
+
+    if (b.x < b.r || b.x > state.w - b.r) b.dx = -b.dx;
+    if (b.y < b.r) b.dy = -b.dy;
+
+    const p = state.paddle;
+    if (state.keys.left) p.vx = -p.speed; else if (state.keys.right) p.vx = p.speed; else p.vx = 0;
+    p.x += p.vx;
+    p.x = Math.max(0, Math.min(state.w - p.w, p.x));
+
+    if (b.y + b.r >= p.y && b.x > p.x && b.x < p.x + p.w && b.dy > 0) {
+      b.dy = -b.dy;
+      const hit = (b.x - (p.x + p.w / 2)) / (p.w / 2);
+      b.dx = hit * 3;
+    }
+
+    if (b.y > state.h + 20) {
+      b.x = state.w / 2; b.y = state.h / 2; b.dx = 2; b.dy = -2;
+      buildBricks();
+    }
+
+    ctx.fillStyle = '#ffc857';
+    ctx.fillRect(p.x, p.y, p.w, p.h);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2); ctx.fill();
+
+    collideBricks();
+    drawBricks();
+
+    rafId = requestAnimationFrame(step);
+  }
+
+  function keydown(e) {
+    if (e.key === 'ArrowLeft' || e.key === 'a') state.keys.left = true;
+    if (e.key === 'ArrowRight' || e.key === 'd') state.keys.right = true;
+  }
+  function keyup(e) {
+    if (e.key === 'ArrowLeft' || e.key === 'a') state.keys.left = false;
+    if (e.key === 'ArrowRight' || e.key === 'd') state.keys.right = false;
+  }
+  function mousemove(e) {
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    state.paddle.x = Math.max(0, Math.min(state.w - state.paddle.w, x - state.paddle.w / 2));
+  }
+
+  function startIfAbout() {
+    if (document.body.getAttribute('data-page') !== 'about') return;
+    canvas = document.getElementById(CANVAS_ID);
+    if (!canvas) return;
+    ctx = canvas.getContext('2d');
+    state.w = canvas.width;
+    state.h = canvas.height;
+    buildBricks();
+
+    window.addEventListener('keydown', keydown);
+    window.addEventListener('keyup', keyup);
+    canvas.addEventListener('mousemove', mousemove);
+
+    if (!rafId) rafId = requestAnimationFrame(step);
+  }
+
+  function stop() {
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = null;
+    window.removeEventListener('keydown', keydown);
+    window.removeEventListener('keyup', keyup);
+    if (canvas) canvas.removeEventListener('mousemove', mousemove);
+  }
+
+  const navLinks = document.querySelectorAll('[data-nav-link]');
+  navLinks.forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(() => {
+        if (document.body.getAttribute('data-page') === 'about') { stop(); startIfAbout(); }
+        else { stop(); }
+      }, 0);
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', () => { startIfAbout(); });
 })();

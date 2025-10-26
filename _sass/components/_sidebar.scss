@@ -32,4 +32,20 @@ body[data-page-blog="true"] .blog-side { height: auto; display: flex; flex-direc
 .social-item .social-link { color: var(--light-gray-70); font-size: 18px; }
 .social-item .social-link:hover { color: var(--light-gray); }
 
+/* Breakout in About sidebar */
+.sidebar-game { display: none; }
+body[data-page="about"] .sidebar-info,
+body[data-page="about"] .sidebar-info_more { display: none; }
+body[data-page="about"] .sidebar-game { display: block; }
+
+.sidebar-game #arkanoid {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--eerie-black-2);
+  border: 1px solid var(--jet);
+  border-radius: 16px;
+  box-shadow: var(--shadow-1);
+}
+
 
