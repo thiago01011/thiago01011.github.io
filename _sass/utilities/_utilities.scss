@@ -1,0 +1,14 @@
+/* Small reusable helpers and utility classes */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity var(--transition-2), transform var(--transition-2); }
+.reveal.revealed { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+
+.avatar-box img { transition: transform 0.3s ease; will-change: transform; }
+.avatar-box:hover img { transform: scale(1.05); }
+@media (prefers-reduced-motion: reduce) { .avatar-box img { transition: none; } }
+
+.icon-box ion-icon { --ionicon-stroke-width: 35px; }
+.project-item-icon-box ion-icon { --ionicon-stroke-width: 50px; }
+.modal-close-btn ion-icon { --ionicon-stroke-width: 50px; }
+
+

@@ -1,0 +1,21 @@
+---
+# Jekyll will compile this SCSS into /assets/css/main.css
+---
+
+/* Foundations */
+@import "foundation/colors";
+@import "foundation/typography";
+@import "foundation/animations";
+
+/* Layout */
+@import "layout/base";
+@import "layout/layout";
+@import "layout/responsive";
+
+/* Utilities */
+@import "utilities/utilities";
+
+/* Components */
+@import "components/index";
+
+

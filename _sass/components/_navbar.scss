@@ -1,0 +1,8 @@
+/* Navbar component */
+.navbar { position: static; width: 100%; margin: 0 0 4px 0; background: hsla(240, 1%, 17%, 0.75); backdrop-filter: blur(10px); border: 1px solid var(--jet); border-radius: 12px; box-shadow: var(--shadow-2); z-index: 5; grid-area: navbar; }
+.navbar-list { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; padding: 0 10px; }
+.navbar-link { color: var(--light-gray); font-size: var(--fs-8); padding: 20px 7px; transition: color var(--transition-1); }
+.navbar-link:hover, .navbar-link:focus { color: var(--light-gray-70); }
+.navbar-link.active { color: var(--orange-yellow-crayola); }
+
+

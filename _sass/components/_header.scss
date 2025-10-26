@@ -1,0 +1,22 @@
+/* Header (hero) component */
+.site-hero {
+  background: url('/assets/images/blog-6.jpg') center/cover no-repeat;
+  border-radius: 20px;
+  border: 1px solid var(--jet);
+  box-shadow: var(--shadow-2);
+  margin-bottom: 4px;
+  min-height: 250px;
+  grid-area: header;
+}
+
+.hero-wrap { display: grid; grid-template-columns: 1fr 420px; height: 100%; }
+.hero-left { display: flex; flex-direction: column; justify-content: center; padding: 24px 28px; }
+.hero-email { color: var(--white-2); opacity: 0.9; font-size: 14px; margin-top: 4px; }
+.hero-location { color: var(--light-gray-70); font-size: 14px; margin-top: 2px; }
+.hero-right { position: relative; background: var(--vegas); padding: 0px 20px ; border-radius: 0 20px 20px 0; display: flex; align-items: center; justify-content: right; }
+.hero-avatar-img { width: 130px; height: 130px; border-radius: 100%; border: 0px solid #1f2a44; display: block; object-fit: cover; object-position: center; box-shadow: 0 0 0 12px var(--vegas-gold) inset; background: var(--vegas-gold); }
+.hero-name { color: var(--white-2); font-size: 28px; margin-bottom: 6px; }
+.hero-title { color: var(--orange-yellow-crayola); font-size: 16px; }
+.hero-location { color: var(--light-gray-70); font-size: 14px; }
+
+
