@@ -138,31 +138,37 @@ const pages = document.querySelectorAll("[data-page]");
 // add event to all nav link
 for (let i = 0; i < navigationLinks.length; i++) {
   navigationLinks[i].addEventListener("click", function () {
+    const clickedText = this.textContent.trim().toLowerCase();
 
-    for (let i = 0; i < pages.length; i++) {
-      if (this.innerHTML.toLowerCase() === pages[i].dataset.page) {
-        pages[i].classList.add("active");
-        navigationLinks[i].classList.add("active");
-        window.scrollTo(0, 0);
-        // set current page on body
-        document.body.setAttribute('data-page', pages[i].dataset.page);
-        // toggle sidebar game visibility explicitly
-        const sidebarGame = document.querySelector('.sidebar-game');
-        if (sidebarGame) {
-          sidebarGame.style.display = (pages[i].dataset.page === 'about') ? 'block' : 'none';
-        }
-        // toggle blog sidebar mode on body
-        if (pages[i].dataset.page === 'blog') {
-          document.body.setAttribute('data-page-blog', 'true');
-        } else {
-          document.body.removeAttribute('data-page-blog');
-        }
-      } else {
-        pages[i].classList.remove("active");
-        navigationLinks[i].classList.remove("active");
-      }
+    // toggle pages and set active link to the clicked one
+    for (let j = 0; j < pages.length; j++) {
+      const isTarget = clickedText === pages[j].dataset.page;
+      pages[j].classList.toggle("active", isTarget);
     }
 
+    // ensure only the clicked nav link is active
+    for (let j = 0; j < navigationLinks.length; j++) {
+      navigationLinks[j].classList.toggle("active", navigationLinks[j] === this);
+    }
+
+    window.scrollTo(0, 0);
+
+    // set current page on body
+    const current = clickedText;
+    document.body.setAttribute('data-page', current);
+
+    // toggle sidebar game visibility explicitly
+    const sidebarGame = document.querySelector('.sidebar-game');
+    if (sidebarGame) {
+      sidebarGame.style.display = (current === 'about') ? 'block' : 'none';
+    }
+
+    // toggle blog sidebar mode on body
+    if (current === 'blog') {
+      document.body.setAttribute('data-page-blog', 'true');
+    } else {
+      document.body.removeAttribute('data-page-blog');
+    }
   });
 }
 
