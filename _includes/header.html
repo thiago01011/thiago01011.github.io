@@ -1,14 +1,13 @@
 <header class="site-hero">
-  <div class="hero-inner">
+  <div class="hero-wrap">
     <div class="hero-left">
       <h1 class="hero-name">{{ site.data.profile.name }}</h1>
       <p class="hero-title">{{ site.data.profile.title }}</p>
-      <p class="hero-location">{{ site.data.profile.location }}</p>
+      <a class="hero-email" href="mailto:{{ site.data.profile.contacts.email }}">{{ site.data.profile.contacts.email }}</a>
+      <p class="hero-location">{{ site.data.profile.contacts.location }}</p>
     </div>
     <div class="hero-right">
-      <figure class="hero-avatar">
-        <img src="{{ site.data.profile.avatar }}" alt="{{ site.data.profile.name }}">
-      </figure>
+      <img class="hero-avatar-img" src="{{ site.data.profile.avatar }}" alt="{{ site.data.profile.name }}">
     </div>
   </div>
 </header>
